@@ -1,36 +1,47 @@
 <script>
-  import { questionsStore } from "../stores/questionsStore";
+  import { quesionsStore } from "../stores/quesionsStore";
+  import Question from "./Question.svelte";
   import getRandomNumber from "../utils/getRandomNumber";
 
-  const indexes = Array.from({ length: 3 }, () =>
-    getRandomNumber(0, $questionsStore.length)
-  );
+  let filtered = {};
+  let show = {};
 
-  const filtered = $questionsStore.filter((q, index) =>
-    indexes.includes(index)
-  );
+  if (!localStorage.settings) {
+    show = {
+      textarea: true,
+      description: true,
+    };
+  } else {
+    show = JSON.parse(localStorage.settings);
+  }
+
+  const getFilteredQuestions = () => {
+    const indexes = Array.from({ length: 3 }, () =>
+      getRandomNumber(0, $quesionsStore.length)
+    );
+
+    filtered = $quesionsStore.filter((q, index) => indexes.includes(index));
+  };
+
+  const toggleShow = (name) => {
+    show[name] = !show[name];
+    localStorage.settings = JSON.stringify(show);
+  };
+
+  getFilteredQuestions();
 </script>
 
-<style>
-  .card {
-    border: 1px solid #eee;
-    border-radius: 3px;
-    margin: 3rem;
-    padding: 3rem;
-  }
-
-  .card textarea {
-    width: 100%;
-    height: 10rem;
-  }
-</style>
-
 <div>
+  <div class="text-right">
+    <button
+      class="button"
+      on:click={() => toggleShow('description')}>Descriptions</button>
+    <button
+      class="button"
+      on:click={() => toggleShow('textarea')}>Textareas</button>
+    <button class="button" on:click={getFilteredQuestions}>New</button>
+  </div>
   {#each filtered as question, i}
-    <div class="card">
-      <h3>{question.text}</h3>
-      <p>{question.description}</p>
-      <textarea name="" id="" />
-    </div>
+    <Question {question} {show} />
   {/each}
 </div>
