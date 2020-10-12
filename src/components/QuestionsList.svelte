@@ -1,8 +1,11 @@
 <script>
   import { questionsStore } from "../stores/questionsStore";
+  import { scope } from "../stores/uiStore";
+  import { onMount } from "svelte";
   import Question from "./Question.svelte";
   import getRandomNumber from "../utils/getRandomNumber";
 
+  let currentScope = $scope;
   let filtered = {};
   let show = {};
 
@@ -22,7 +25,7 @@
 
     filtered = $questionsStore
       .filter((q) => {
-        return q.categories.includes("daily");
+        return q.categories.includes(currentScope);
       })
       .filter((q, index) => indexes.includes(index));
   };
@@ -33,6 +36,14 @@
   };
 
   getFilteredQuestions();
+
+  // un-comment once scoped questions are written
+  // onMount(() =>
+  //   scope.subscribe((value) => {
+  //     currentScope = value;
+  //     getFilteredQuestions();
+  //   })
+  // );
 </script>
 
 <div>
