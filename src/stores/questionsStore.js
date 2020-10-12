@@ -12,7 +12,7 @@ export const questionsStore = writable([
     id: "2",
     text: "Who do I want to be?",
     description:
-      "Who do you want to be at some point in the future. You can vary the time span, or focus on different areas of your life, but be specific.",
+      "Who do you want to be at some point in the future? You can vary the time span, or focus on different areas of your life, but be specific.",
     categories: ["daily"],
   },
   {

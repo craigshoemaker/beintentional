@@ -17,5 +17,8 @@ export const tasksStore = writable({
  - Note important takeaways from the last month.
  - Note the most important items for the coming month.
   `,
-  yearly: `**yearly**`,
+  yearly: `
+ - Note important takeaways from the last year.
+ - Note the most important items for the coming year.
+  `,
 });
