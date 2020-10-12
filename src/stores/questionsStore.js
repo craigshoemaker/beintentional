@@ -18,25 +18,29 @@ export const questionsStore = writable([
   {
     id: "3",
     text: "What am I avoiding?",
-    description: "Situations that cause pain ",
+    description:
+      "Situations that cause pain or inconvenience make us put them off. What do I need to face head-on?",
     categories: ["daily"],
   },
   {
     id: "4",
     text: "What scares me?",
-    description: "test",
+    description:
+      "We all have our fears - rational and irrational. What fears are keeping me from my best?",
     categories: ["daily"],
   },
   {
     id: "5",
     text: "What am I grateful for?",
-    description: "test",
+    description:
+      "Some days are easier than others to find our gratitude. Whether it's a beating heart, or winning the lottery - there's and endless list of things to be thankful for.",
     categories: ["daily"],
   },
   {
     id: "6",
     text: "How can I make a difference in someone's life today?",
-    description: "test",
+    description:
+      "We sometimes lose sight of the fact that our everyday life, be it words or actions have a profound effect on those around us.",
     categories: ["daily"],
   },
   {
@@ -50,19 +54,21 @@ export const questionsStore = writable([
     id: "8",
     text:
       "What's broken around me that needs to be fixed or redeemed for good?",
-    description: "test",
+    description:
+      "The world is full of opportunities to help make today better than yesterday. Find one and help bring more good in the world.",
     categories: ["daily"],
   },
   {
     id: "9",
     text: "Where am I being stubborn or arrogant?",
-    description: "test",
+    description: "We all resist change - sometimes to our folly.",
     categories: ["daily"],
   },
   {
     id: "10",
     text: "What don't I understand about myself?",
-    description: "test",
+    description:
+      "What in my life persists no matter how I try to rid myself of it? What reactions, emotions, or attitudes do I have that sometimes surprise me?",
     categories: ["daily"],
   },
   {
@@ -75,19 +81,22 @@ export const questionsStore = writable([
   {
     id: "12",
     text: "What do I regret?",
-    description: "test",
+    description:
+      "Rather than looking for a past mistake to dwell on, what misstep presents me with a learning experience?",
     categories: ["daily"],
   },
   {
     id: "13",
     text: "How am I wasting time?",
-    description: "test",
+    description:
+      "Social media, TV, or age old procrastination can be a silent thief of our time and attention",
     categories: ["daily"],
   },
   {
     id: "14",
     text: "How can I challenge/scare myself?",
-    description: "test",
+    description:
+      "We are all built to withstand more than we think. What can I do, start, or arrange that places me well out of my comfort zone?",
     categories: ["daily"],
   },
   {
@@ -114,7 +123,7 @@ export const questionsStore = writable([
   {
     id: "18",
     text: "What upcoming events or important dates do I need to prepare for?",
-    description: "test",
+    description: "Don't miss that birthday, anniversary, or important meeting.",
     categories: ["daily"],
   },
   {
@@ -134,7 +143,7 @@ export const questionsStore = writable([
   {
     id: "21",
     text: "Who in my life do I need to follow up with?",
-    description: "test",
+    description: "Losing touch with friends and family happens all too easy.",
     categories: ["daily"],
   },
   {

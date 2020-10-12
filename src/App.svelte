@@ -1,15 +1,15 @@
 <script>
   import Header from "./components/Header.svelte";
+  import Footer from "./components/Footer.svelte";
   import Navigation from "./components/Navigation.svelte";
   import QuestionsList from "./components/QuestionsList.svelte";
   import Tasks from "./components/Tasks.svelte";
 </script>
 
-<main>
+<main class="w-full sm:w-1/2 ml-auto mr-auto p-2">
   <Header />
   <Navigation />
-  <div class="w-full sm:w-1/2 ml-auto mr-auto p-2">
-    <QuestionsList />
-    <Tasks />
-  </div>
+  <QuestionsList />
+  <Tasks />
+  <Footer />
 </main>
