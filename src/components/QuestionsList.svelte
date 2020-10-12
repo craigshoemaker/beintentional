@@ -1,5 +1,5 @@
 <script>
-  import { quesionsStore } from "../stores/quesionsStore";
+  import { questionsStore } from "../stores/questionsStore";
   import Question from "./Question.svelte";
   import getRandomNumber from "../utils/getRandomNumber";
 
@@ -17,10 +17,14 @@
 
   const getFilteredQuestions = () => {
     const indexes = Array.from({ length: 3 }, () =>
-      getRandomNumber(0, $quesionsStore.length)
+      getRandomNumber(0, $questionsStore.length)
     );
 
-    filtered = $quesionsStore.filter((q, index) => indexes.includes(index));
+    filtered = $questionsStore
+      .filter((q) => {
+        return q.categories.includes("daily");
+      })
+      .filter((q, index) => indexes.includes(index));
   };
 
   const toggleShow = (name) => {
@@ -32,14 +36,19 @@
 </script>
 
 <div>
-  <div class="text-right">
+  <div class="text-center mt-3">
     <button
       class="button"
-      on:click={() => toggleShow('description')}>Descriptions</button>
+      on:click={() => toggleShow('description')}
+      title="Show/hide descriptions">📄</button>
     <button
       class="button"
-      on:click={() => toggleShow('textarea')}>Textareas</button>
-    <button class="button" on:click={getFilteredQuestions}>New</button>
+      on:click={() => toggleShow('textarea')}
+      title="Show/hide response boxes">⌨</button>
+    <button
+      class="button"
+      on:click={getFilteredQuestions}
+      title="Recycle questions">♻</button>
   </div>
   {#each filtered as question, i}
     <Question {question} {show} />

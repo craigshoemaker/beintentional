@@ -1,8 +1,23 @@
 @tailwind base;
 
+button:focus {
+  outline: 0;
+}
+
 .button {
-  background-color: pink;
-  @apply text-xs rounded-sm;
+  @apply text-2xl rounded-sm;
+}
+
+.nav-container {
+  @apply text-center;
+}
+
+.nav-container span {
+  @apply m-3 cursor-pointer;
+}
+
+.selected {
+  border-bottom: 3px solid #333;
 }
 
 /* html,

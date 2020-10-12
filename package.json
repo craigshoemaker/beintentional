@@ -2,12 +2,12 @@
   "name": "beintentional-web",
   "version": "1.0.0",
   "scripts": {
-    "watch:tailwind": "postcss public/global.css -o public/global.min.css -w",
-    "build:tailwind": "set NODE_ENV=production && postcss public/global.css -o public/index.min.css",
+    "watch:tailwind": "postcss public/global.css -o public/build/global.css -w",
+    "build:tailwind": "set NODE_ENV=production && postcss public/global.css -o public/build/global.css",
     "build": "npm run build:tailwind && rollup -c",
     "start": "sirv public",
     "serve": "serve public -p 80",
-    "dev": "rollup -c -w && npm run watch:tailwind\""
+    "dev": "rollup -c -w && npm run watch:tailwind"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^14.0.0",
@@ -19,6 +19,7 @@
     "svelte": "^3.0.0"
   },
   "dependencies": {
+    "@fullhuman/postcss-purgecss": "^3.0.0",
     "autoprefixer": "^10.0.1",
     "postcss": "^8.1.1",
     "postcss-cli": "^8.1.0",
