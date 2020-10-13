@@ -20,5 +20,9 @@
   border-bottom: 3px solid #333;
 }
 
+.title-2 {
+  @apply text-center w-full text-2xl font-semibold font-serif mb-5;
+}
+
 @tailwind components;
 @tailwind utilities;

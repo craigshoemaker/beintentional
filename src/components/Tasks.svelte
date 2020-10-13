@@ -19,10 +19,7 @@
 </script>
 
 <div class="p-4 pl-8">
-  <h2
-    class="text-center w-full text-2xl sm:text-4xl font-semibold font-serif mb-5">
-    Tasks
-  </h2>
+  <h2 class="title-2 sm:text-4xl">Tasks</h2>
   <div class={scope}>
     {@html html}
   </div>

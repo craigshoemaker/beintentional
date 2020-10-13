@@ -47,6 +47,7 @@
 </script>
 
 <div>
+  <h2 class="title-2 sm:text-4xl">Questions</h2>
   <div class="text-center mt-3">
     <button
       class="button"
