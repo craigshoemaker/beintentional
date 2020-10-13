@@ -34,7 +34,6 @@
 
   getFilteredQuestions();
 
-  // un-comment once scoped questions are written
   onMount(() =>
     scope.subscribe((value) => {
       currentScope = value;
