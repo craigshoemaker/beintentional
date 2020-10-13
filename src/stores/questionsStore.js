@@ -6,14 +6,14 @@ export const questionsStore = writable([
     text: "Who am I?",
     description:
       "Honestly describe who you are at this moment in time. Perhaps you select a certain aspect of who you are to dive deep, but the point is to make an objective assessment of who you are today.",
-    categories: ["daily"],
+    categories: ["yearly"],
   },
   {
     id: "2",
     text: "Who do I want to be?",
     description:
       "Who do you want to be at some point in the future? You can vary the time span, or focus on different areas of your life, but be specific.",
-    categories: ["daily"],
+    categories: ["yearly"],
   },
   {
     id: "3",
@@ -26,7 +26,7 @@ export const questionsStore = writable([
     id: "4",
     text: "What scares me?",
     description:
-      "We all have our fears - rational and irrational. What fears are keeping me from my best?",
+      "We all have our fears - rational and irrational. What fears are worth examining?",
     categories: ["daily"],
   },
   {
@@ -152,5 +152,12 @@ export const questionsStore = writable([
     description:
       "Never cease to push forward. Identify an area of in life that needs changing or improving.",
     categories: ["daily", "weekly", "monthly", "yearly"],
+  },
+  {
+    id: "23",
+    text: "What mistakes have I made that make for worthwhile lessons?",
+    description:
+      "A failure without lessons is really just a failure. Find the instructional aspects of situations that can make them more worth the experience.",
+    categories: ["yearly"],
   },
 ]);
