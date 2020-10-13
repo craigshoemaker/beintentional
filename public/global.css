@@ -1,6 +1,7 @@
 @tailwind base;
 
-*:focus {
+*:focus,
+button:focus {
   outline: 0;
 }
 
