@@ -9,7 +9,7 @@
 <main class="w-full sm:w-1/2 ml-auto mr-auto p-2">
   <Header />
   <Navigation />
-  <QuestionsList />
   <Tasks />
+  <QuestionsList />
   <Footer />
 </main>
