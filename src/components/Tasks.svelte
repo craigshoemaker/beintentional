@@ -8,7 +8,10 @@
 
   const renderTasks = () => {
     html = converter.makeHtml($tasksStore[$scope]);
-    html = html.replace(/\<ul\>/g, '<ul class="list-disc">');
+    html = html.replace(
+      /\<li\>/g,
+      '<li><input type="checkbox" class="inline-block mr-2">'
+    );
   };
 
   onMount(() => scope.subscribe(renderTasks));
