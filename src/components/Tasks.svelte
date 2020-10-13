@@ -18,8 +18,7 @@
 <div class="p-4 pl-8">
   <h2
     class="text-center w-full text-2xl sm:text-4xl font-semibold font-serif mb-5">
-    {$scope}
-    tasks
+    Tasks
   </h2>
   <div class={scope}>
     {@html html}
