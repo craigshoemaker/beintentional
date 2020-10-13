@@ -19,15 +19,12 @@
   }
 
   const getFilteredQuestions = () => {
-    const indexes = Array.from({ length: 3 }, () =>
-      getRandomNumber(0, $questionsStore.length)
+    filtered = $questionsStore.filter((q) =>
+      q.categories.includes(currentScope)
     );
-
-    filtered = $questionsStore
-      .filter((q) => {
-        return q.categories.includes(currentScope);
-      })
-      .filter((q, index) => indexes.includes(index));
+    const max = { length: 3 };
+    const indexes = Array.from(max, () => getRandomNumber(0, filtered.length));
+    filtered = filtered.filter((q, index) => indexes.includes(index));
   };
 
   const toggleShow = (name) => {
@@ -38,12 +35,12 @@
   getFilteredQuestions();
 
   // un-comment once scoped questions are written
-  // onMount(() =>
-  //   scope.subscribe((value) => {
-  //     currentScope = value;
-  //     getFilteredQuestions();
-  //   })
-  // );
+  onMount(() =>
+    scope.subscribe((value) => {
+      currentScope = value;
+      getFilteredQuestions();
+    })
+  );
 </script>
 
 <div>
@@ -62,7 +59,7 @@
       on:click={getFilteredQuestions}
       title="Recycle questions">♻</button>
   </div>
-  {#each filtered as question, i}
+  {#each filtered as question}
     <Question {question} {show} />
   {/each}
 </div>
