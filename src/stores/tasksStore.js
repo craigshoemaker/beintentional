@@ -16,7 +16,7 @@ export const tasksStore = writable({
 - List the top 3 things that need to get done week
 `,
   monthly: `
- - Note important takeaways from the last month.
+ - Note important takeaways from the last month
  - Note the most important items for the coming month
 - List the top 3 things that need to get done month
   `,

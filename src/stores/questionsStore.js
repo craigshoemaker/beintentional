@@ -157,7 +157,7 @@ export const questionsStore = writable([
     id: "23",
     text: "What mistakes have I made that make for worthwhile lessons?",
     description:
-      "A failure without lessons is really just a failure. Find the instructional aspects of situations that can make them more worth the experience.",
+      "A failure without extracting lessons is really just a defeat. Find the instructional aspects of situations that can make them more worth the experience.",
     categories: ["yearly"],
   },
 ]);
