@@ -1,12 +1,21 @@
 <script>
-  import { foo } from "../stores";
-  import Question from "./Question.svelte";
+  import { stores } from '../stores';
+  import Question from './Question.svelte';
+  import getRandomNumber from '../utils/getRandomNumber';
 
+  const { getFilteredQuestions, scope, questions } = stores;
   // $: filtered = getFilteredQuestions();
 
-  console.log(foo);
-
   let filtered = [];
+
+  $: {
+    let temp = $questions.filter((q) => q.categories.includes($scope));
+    const max = { length: 3 };
+    const indexes = Array.from(max, () => getRandomNumber(0, temp.length));
+    filtered = temp.filter((q, index) => indexes.includes(index));
+  }
+
+  // let filtered = [];
 
   let show = {};
 
@@ -35,20 +44,11 @@
 <div>
   <h2 class="title-2 sm:text-4xl">Questions</h2>
   <div class="text-center mt-3">
-    <button
-      class="button"
-      on:click={() => toggleShow('description')}
-      title="Show/hide descriptions">📄</button>
-    <button
-      class="button"
-      on:click={() => toggleShow('textarea')}
-      title="Show/hide response boxes">⌨</button>
-    <button
-      class="button"
-      on:click={getFilteredQuestions}
-      title="Recycle questions">♻</button>
+    <button class="button" on:click={() => toggleShow('description')} title="Show/hide descriptions">📄</button>
+    <button class="button" on:click={() => toggleShow('textarea')} title="Show/hide response boxes">⌨</button>
+    <button class="button" on:click={getFilteredQuestions} title="Recycle questions">♻</button>
   </div>
-  {#each $filtered as question}
+  {#each filtered as question}
     <Question {question} {show} />
   {/each}
 </div>
