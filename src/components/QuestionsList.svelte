@@ -2,17 +2,14 @@
   import { stores } from '../stores';
   import Question from './Question.svelte';
 
-  const { filtered } = stores;
-  let show = {};
+  const { filteredQuestions } = stores;
 
-  if (!localStorage.settings) {
-    show = {
-      textarea: true,
-      description: true,
-    };
-  } else {
-    show = JSON.parse(localStorage.settings);
-  }
+  let show = !localStorage.settings
+    ? {
+        textarea: true,
+        description: true,
+      }
+    : JSON.parse(localStorage.settings);
 
   const toggleShow = (name) => {
     show[name] = !show[name];
@@ -32,7 +29,7 @@
       }}
       title="Recycle questions">♻</button>
   </div>
-  {#each $filtered as question}
+  {#each $filteredQuestions as question}
     <Question {question} {show} />
   {/each}
 </div>

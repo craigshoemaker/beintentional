@@ -1,12 +1,13 @@
 <script>
-  import { stores } from "../stores";
-  import getRandomNumber from "../utils/getRandomNumber";
+  import { stores } from '../stores';
+  import getRandomNumber from '../utils/getRandomNumber';
 
   let { scope, tasks } = stores;
   const converter = new showdown.Converter();
-  let html = "";
+  let html = '';
 
   const renderTasks = () => {
+    // TODO: Could you put this in the templatem and just call a function that gives you the random numbers?
     html = converter.makeHtml($tasks[$scope]);
     if (html && html.length) {
       html = html.replace(/<li>(.*)?<\/li>/g, (match, group) => {
