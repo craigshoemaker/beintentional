@@ -1,3 +1,9 @@
 import { writable } from "svelte/store";
 
-export const scope = writable("daily");
+let scope = writable("daily");
+
+function changeScope(newScope) {
+  scope.set(newScope);
+}
+
+export const uiStore = { scope, changeScope };

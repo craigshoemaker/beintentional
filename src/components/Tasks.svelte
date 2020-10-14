@@ -1,25 +1,25 @@
 <script>
-  import { onMount } from "svelte";
-  import { tasksStore } from "../stores/tasksStore";
-  import { scope } from "../stores/uiStore";
+  import { stores } from "../stores";
   import getRandomNumber from "../utils/getRandomNumber";
 
+  let { scope, tasks } = stores;
   const converter = new showdown.Converter();
   let html = "";
 
   const renderTasks = () => {
-    html = converter.makeHtml($tasksStore[$scope]);
-    html = html.replace(/<li>(.*)?<\/li>/g, (match, group) => {
-      const id = getRandomNumber(1, 10000);
-      return `
-      <li>
-        <input id="${id}" type="checkbox" class="inline-block mr-2">
-        <label for="${id}" class="cursor-pointer">${group}</label>
-      </li>`;
-    });
+    html = converter.makeHtml($tasks[$scope]);
+    if (html && html.length) {
+      html = html.replace(/<li>(.*)?<\/li>/g, (match, group) => {
+        const id = getRandomNumber(1, 10000);
+        return `
+        <li>
+          <input id="${id}" type="checkbox" class="inline-block mr-2">
+          <label for="${id}" class="cursor-pointer">${group}</label>
+        </li>`;
+      });
+    }
   };
 
-  onMount(() => scope.subscribe(renderTasks));
   renderTasks();
 </script>
 
