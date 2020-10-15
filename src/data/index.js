@@ -1,5 +1,5 @@
-import { questionsData } from "./questionsData";
-import { tasksData } from "./tasksData";
+import { questionsData } from './questionsData';
+import { tasksData } from './tasksData';
 
 export const data = {
   questions: questionsData,

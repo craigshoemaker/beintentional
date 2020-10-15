@@ -1,7 +1,7 @@
-import { derived, writable } from "svelte/store";
-import { uiStore } from "./uiStore.js";
-import { utils } from "../utils";
-import { data } from "../data";
+import { derived, writable } from 'svelte/store';
+import { uiStore } from './uiStore.js';
+import { utils } from '../utils';
+import { data } from '../data';
 
 const converter = new showdown.Converter();
 const questions = writable(data.questions);
@@ -19,14 +19,14 @@ function getNewQuestions() {
 
 function filterQuestions(questions, scope) {
   const questionsByCategory = questions.filter((question) =>
-    question.categories.includes(scope)
+    question.categories.includes(scope),
   );
   const size = { length: 3 };
   const indexes = Array.from(size, () =>
-    getRandomNumber(0, questionsByCategory.length)
+    getRandomNumber(0, questionsByCategory.length),
   );
   return questionsByCategory.filter((question, index) =>
-    indexes.includes(index)
+    indexes.includes(index),
   );
 }
 
@@ -47,13 +47,13 @@ function getTasksHTML(originalTasks, currentScope) {
 }
 
 const scopedTasks = derived([tasks, scope], ([$tasks, $scope]) =>
-  getTasksHTML($tasks, $scope)
+  getTasksHTML($tasks, $scope),
 );
 
 const filteredQuestions = derived(
   [questions, scope, questionsRefresh],
   ([$questions, $scope, $refresh]) =>
-    filterQuestions($questions, $scope /* , $refresh */)
+    filterQuestions($questions, $scope /* , $refresh */),
 );
 
 export const stores = {
