@@ -1,7 +1,9 @@
-import { questionsData } from './questionsData';
-import { tasksData } from './tasksData';
+import { questions } from './questions-data';
+import { tasks } from './tasks-data';
+import { scopes } from './scopes-data';
 
 export const data = {
-  questions: questionsData,
-  tasks: tasksData,
+  questions,
+  tasks,
+  scopes,
 };
