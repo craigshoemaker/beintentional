@@ -1,12 +1,13 @@
 import { derived, writable } from "svelte/store";
 import { uiStore } from "./uiStore.js";
-import { getRandomNumber } from "../utils/getRandomNumber";
+import { utils } from "../utils";
 import { data } from "../data";
 
 const converter = new showdown.Converter();
 const questions = writable(data.questions);
 const tasks = writable(data.tasks);
 const { scope } = uiStore;
+const { getRandomNumber } = utils;
 
 const getTimeString = () => new Date().toTimeString();
 
