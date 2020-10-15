@@ -2,7 +2,7 @@ import { derived } from "svelte/store";
 import { uiStore } from "./uiStore.js";
 import { questionsStore } from "./questionsStore.js";
 import { tasksStore } from "./tasksStore.js";
-import getRandomNumber from "../utils/getRandomNumber";
+import { getRandomNumber } from "../utils/getRandomNumber";
 
 const converter = new showdown.Converter();
 const { questions } = questionsStore;
