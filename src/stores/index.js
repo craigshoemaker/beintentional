@@ -23,7 +23,7 @@ function filterQuestions(q, s, d) {
   return questions.filter((q, index) => indexes.includes(index));
 }
 
-function getTasks(originalTasks, currentScope) {
+function getTasksHTML(originalTasks, currentScope) {
   const markdown = originalTasks[currentScope];
   let html = converter.makeHtml(markdown);
   if (html && html.length) {
@@ -39,7 +39,9 @@ function getTasks(originalTasks, currentScope) {
   return html;
 }
 
-const scopedTasks = derived([tasks, scope], ([$t, $s]) => getTasks($t, $s));
+const scopedTasks = derived([tasks, scope], ([$tasks, $scope]) =>
+  getTasksHTML($tasks, $scope)
+);
 
 const filteredQuestions = derived(
   [questions, scope, questionsRefresh],
