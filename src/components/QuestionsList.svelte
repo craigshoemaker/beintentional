@@ -2,7 +2,7 @@
   import { stores } from "../stores";
   import Question from "./Question.svelte";
 
-  const { questions } = stores;
+  const { questions, getNewQuestions } = stores;
 
   let show = !localStorage.settings
     ? {
@@ -31,7 +31,7 @@
     <button
       class="button"
       on:click={() => {
-        /* TODO: getFilteredQuestions*/
+        getNewQuestions();
       }}
       title="Recycle questions">♻</button>
   </div>
