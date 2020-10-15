@@ -16,11 +16,17 @@ function getNewQuestions() {
   questionsRefresh.set(getTimeString());
 }
 
-function filterQuestions(q, s, d) {
-  const questions = q.filter((q) => q.categories.includes(s));
-  const max = { length: 3 };
-  const indexes = Array.from(max, () => getRandomNumber(0, questions.length));
-  return questions.filter((q, index) => indexes.includes(index));
+function filterQuestions(questions, scope) {
+  const questionsByCategory = questions.filter((question) =>
+    question.categories.includes(scope)
+  );
+  const size = { length: 3 };
+  const indexes = Array.from(size, () =>
+    getRandomNumber(0, questionsByCategory.length)
+  );
+  return questionsByCategory.filter((question, index) =>
+    indexes.includes(index)
+  );
 }
 
 function getTasksHTML(originalTasks, currentScope) {
@@ -46,7 +52,7 @@ const scopedTasks = derived([tasks, scope], ([$tasks, $scope]) =>
 const filteredQuestions = derived(
   [questions, scope, questionsRefresh],
   ([$questions, $scope, $refresh]) =>
-    filterQuestions($questions, $scope, $refresh)
+    filterQuestions($questions, $scope /* , $refresh */)
 );
 
 export const stores = {
