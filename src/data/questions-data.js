@@ -1,4 +1,4 @@
-export const questionsData = [
+export const questions = [
   {
     id: '1',
     text: 'Who am I?',

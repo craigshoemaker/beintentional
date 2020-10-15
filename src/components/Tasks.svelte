@@ -1,6 +1,6 @@
 <script>
-  import { stores } from "../stores";
-  let { tasks } = stores;
+  import { store } from '../store';
+  let { tasks } = store;
 </script>
 
 <div class="p-4 pl-8">

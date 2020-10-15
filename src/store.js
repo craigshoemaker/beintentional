@@ -1,17 +1,19 @@
 import { derived, writable } from 'svelte/store';
-import { uiStore } from './uiStore.js';
-import { utils } from '../utils';
-import { data } from '../data';
+import { getRandomNumber } from './core';
+import { data } from './data';
+
+let scope = writable('daily');
+let scopes = writable(data.scopes);
 
 const converter = new showdown.Converter();
 const questions = writable(data.questions);
 const tasks = writable(data.tasks);
-const { scope } = uiStore;
-const { getRandomNumber } = utils;
-
 const getTimeString = () => new Date().toTimeString();
-
 const questionsRefresh = writable(getTimeString());
+
+function changeScope(newScope) {
+  scope.set(newScope);
+}
 
 function getNewQuestions() {
   questionsRefresh.set(getTimeString());
@@ -32,9 +34,10 @@ function filterQuestions(questions, scope) {
 
 function getTasksHTML(originalTasks, currentScope) {
   const markdown = originalTasks[currentScope];
+  const liRegEx = /<li>(.*)?<\/li>/g;
   let html = converter.makeHtml(markdown);
   if (html && html.length) {
-    html = html.replace(/<li>(.*)?<\/li>/g, (match, group) => {
+    html = html.replace(liRegEx, (match, group) => {
       const id = getRandomNumber(1, 10000);
       return `
         <li>
@@ -56,9 +59,11 @@ const filteredQuestions = derived(
     filterQuestions($questions, $scope /* , $refresh */),
 );
 
-export const stores = {
-  ...uiStore,
+export const store = {
+  changeScope,
   questions: filteredQuestions,
+  scope,
+  scopes,
   tasks: scopedTasks,
   getNewQuestions,
 };

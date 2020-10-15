@@ -1,8 +1,8 @@
 <script>
-  import { stores } from "../stores";
+  import { store } from "../store";
   import Question from "./Question.svelte";
 
-  const { questions, getNewQuestions } = stores;
+  const { questions, getNewQuestions } = store;
 
   let show = !localStorage.settings
     ? {

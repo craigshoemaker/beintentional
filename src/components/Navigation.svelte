@@ -1,6 +1,6 @@
 <script>
-  import { stores } from '../stores';
-  let { scope, scopes, changeScope } = stores;
+  import { store } from '../store';
+  let { scope, scopes, changeScope } = store;
 </script>
 
 <section class="nav-container">
