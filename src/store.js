@@ -33,9 +33,10 @@ function filterQuestions(questions, scope) {
 }
 
 function getTasksHTML(originalTasks, currentScope) {
-  const markdown = originalTasks[currentScope];
+  let value = {};
+  value.markdown = originalTasks[currentScope].replace(/^\s+|\s+$/gm, '');
   const liRegEx = /<li>(.*)?<\/li>/g;
-  let html = converter.makeHtml(markdown);
+  let html = converter.makeHtml(value.markdown);
   if (html && html.length) {
     html = html.replace(liRegEx, (match, group) => {
       const id = getRandomNumber(1, 10000);
@@ -46,12 +47,20 @@ function getTasksHTML(originalTasks, currentScope) {
         </li>`;
     });
   }
-  return html;
+  value.html = html;
+  return value;
 }
 
 const scopedTasks = derived([tasks, scope], ([$tasks, $scope]) =>
   getTasksHTML($tasks, $scope),
 );
+
+function updateTasks(currentScope, markdown) {
+  tasks.update((state) => {
+    state[currentScope] = markdown;
+    return state;
+  });
+}
 
 const filteredQuestions = derived(
   [questions, scope, questionsRefresh],
@@ -60,10 +69,11 @@ const filteredQuestions = derived(
 );
 
 export const store = {
-  changeScope,
   questions: filteredQuestions,
   scope,
   scopes,
   tasks: scopedTasks,
   getNewQuestions,
+  changeScope,
+  updateTasks,
 };

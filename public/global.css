@@ -5,6 +5,10 @@ button:focus {
   outline: 0;
 }
 
+textarea {
+  @apply w-full mt-8 h-64 p-3 rounded border;
+}
+
 .button {
   @apply text-2xl rounded-sm;
 }

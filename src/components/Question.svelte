@@ -9,8 +9,6 @@
     <p class="text-gray-700 mt-3">{question.description}</p>
   {/if}
   {#if show.textarea}
-    <textarea
-      class="w-full mt-8 h-64 p-3 rounded border"
-      placeholder="Responses are never analyzed, stored, or shared." />
+    <textarea placeholder="Responses are never analyzed, stored, or shared." />
   {/if}
 </div>
