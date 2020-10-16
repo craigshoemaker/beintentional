@@ -9,6 +9,10 @@ textarea {
   @apply w-full mt-8 h-64 p-3 rounded border;
 }
 
+.task-button {
+  @apply w-full text-center bg-gray-200 cursor-pointer p-1 mt-2;
+}
+
 .button {
   @apply text-2xl rounded-sm;
 }

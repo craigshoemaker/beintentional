@@ -1,6 +1,6 @@
 <script>
   import { store } from '../store';
-  let { tasks, scope, updateTasks } = store;
+  const { tasks, scope, updateTasks } = store;
   let markdown = $tasks.markdown;
   let isEditing = false;
 
@@ -13,12 +13,14 @@
 <div class="p-4 pl-8">
   <h2 class="title-2 sm:text-4xl">Tasks</h2>
   {#if isEditing}
-    <button on:click={() => handleUpdate($scope, markdown)}>💾</button>
-    <textarea bind:value={markdown} />
+    <div class="-mt-10"><textarea bind:value={markdown} /></div>
+    <div class="task-button" on:click={() => handleUpdate($scope, markdown)}>
+      💾
+    </div>
   {:else}
-    <button on:click={() => (isEditing = true)}>📝</button>
     <div>
       {@html $tasks.html}
     </div>
+    <div class="task-button" on:click={() => (isEditing = true)}>📝</div>
   {/if}
 </div>
