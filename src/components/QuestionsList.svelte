@@ -1,19 +1,21 @@
 <script>
-  import { store } from "../store";
-  import Question from "./Question.svelte";
+  import { store } from '../store';
+  import { storageKeys } from '../core';
+  import Question from './Question.svelte';
 
   const { questions, getNewQuestions } = store;
+  const { QUESTIONS_LIST } = storageKeys;
 
-  let show = !localStorage.settings
+  let show = !localStorage[QUESTIONS_LIST]
     ? {
         textarea: true,
         description: true,
       }
-    : JSON.parse(localStorage.settings);
+    : JSON.parse(localStorage[QUESTIONS_LIST]);
 
   const toggleShow = (name) => {
     show[name] = !show[name];
-    localStorage.settings = JSON.stringify(show);
+    localStorage[QUESTIONS_LIST] = JSON.stringify(show);
   };
 </script>
 

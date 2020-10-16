@@ -1,13 +1,20 @@
 import { derived, writable } from 'svelte/store';
-import { getRandomNumber } from './core';
+import { getRandomNumber, storageKeys } from './core';
 import { data } from './data';
 
 let scope = writable('daily');
 let scopes = writable(data.scopes);
 
+let tasksDataSource = {};
+if (!localStorage[storageKeys.TASKS]) {
+  tasksDataSource = data.tasks;
+} else {
+  tasksDataSource = JSON.parse(localStorage[storageKeys.TASKS]);
+}
+
 const converter = new showdown.Converter();
 const questions = writable(data.questions);
-const tasks = writable(data.tasks);
+const tasks = writable(tasksDataSource);
 const getTimeString = () => new Date().toTimeString();
 const questionsRefresh = writable(getTimeString());
 
@@ -58,6 +65,7 @@ const scopedTasks = derived([tasks, scope], ([$tasks, $scope]) =>
 function updateTasks(currentScope, markdown) {
   tasks.update((state) => {
     state[currentScope] = markdown;
+    localStorage[storageKeys.TASKS] = JSON.stringify(state);
     return state;
   });
 }
