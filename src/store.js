@@ -5,16 +5,16 @@ import { data } from './data';
 let scope = writable('daily');
 let scopes = writable(data.scopes);
 
-let tasksDataSource = {};
+let tasksState = {};
 if (!localStorage[storageKeys.TASKS]) {
-  tasksDataSource = data.tasks;
+  tasksState = data.tasks;
 } else {
-  tasksDataSource = JSON.parse(localStorage[storageKeys.TASKS]);
+  tasksState = JSON.parse(localStorage[storageKeys.TASKS]);
 }
 
 const converter = new showdown.Converter();
 const questions = writable(data.questions);
-const tasks = writable(tasksDataSource);
+const tasks = writable(tasksState);
 const getTimeString = () => new Date().toTimeString();
 const questionsRefresh = writable(getTimeString());
 
@@ -22,11 +22,7 @@ function changeScope(newScope) {
   scope.set(newScope);
 }
 
-function getNewQuestions() {
-  questionsRefresh.set(getTimeString());
-}
-
-function filterQuestions(questions, scope) {
+function getQuestions(questions, scope) {
   const questionsByCategory = questions.filter((question) =>
     question.categories.includes(scope),
   );
@@ -39,7 +35,11 @@ function filterQuestions(questions, scope) {
   );
 }
 
-function getTasksHTML(originalTasks, currentScope) {
+function updateQuestions() {
+  questionsRefresh.set(getTimeString());
+}
+
+function getTasks(originalTasks, currentScope) {
   let value = {};
   value.markdown = originalTasks[currentScope].replace(/^\s+|\s+$/gm, '');
   const liRegEx = /<li>(.*)?<\/li>/g;
@@ -58,10 +58,6 @@ function getTasksHTML(originalTasks, currentScope) {
   return value;
 }
 
-const scopedTasks = derived([tasks, scope], ([$tasks, $scope]) =>
-  getTasksHTML($tasks, $scope),
-);
-
 function updateTasks(currentScope, markdown) {
   tasks.update((state) => {
     state[currentScope] = markdown;
@@ -70,18 +66,22 @@ function updateTasks(currentScope, markdown) {
   });
 }
 
-const filteredQuestions = derived(
+const _tasks = derived([tasks, scope], ([$tasks, $scope]) =>
+  getTasks($tasks, $scope),
+);
+
+const _questions = derived(
   [questions, scope, questionsRefresh],
   ([$questions, $scope, $refresh]) =>
-    filterQuestions($questions, $scope /* , $refresh */),
+    getQuestions($questions, $scope /* , $refresh */),
 );
 
 export const store = {
-  questions: filteredQuestions,
+  questions: _questions,
   scope,
   scopes,
-  tasks: scopedTasks,
-  getNewQuestions,
+  tasks: _tasks,
+  updateQuestions,
   changeScope,
   updateTasks,
 };

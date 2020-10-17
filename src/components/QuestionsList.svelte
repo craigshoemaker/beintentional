@@ -3,7 +3,7 @@
   import { storageKeys } from '../core';
   import Question from './Question.svelte';
 
-  const { questions, getNewQuestions } = store;
+  const { questions, updateQuestions } = store;
   const { QUESTIONS_LIST } = storageKeys;
 
   let show = !localStorage[QUESTIONS_LIST]
@@ -33,7 +33,7 @@
     <button
       class="button"
       on:click={() => {
-        getNewQuestions();
+        updateQuestions();
       }}
       title="Recycle questions">♻</button>
   </div>
