@@ -4,6 +4,10 @@ body {
   background-color: #fff;
 }
 
+a {
+  color: #0295fe;
+}
+
 *:focus,
 button:focus {
   outline: 0;
