@@ -12,17 +12,12 @@ let tasksState = localStorage[storageKeys.TASKS]
 let scope = writable('daily');
 let scopes = writable(data.scopes);
 
-/**
- * Readable store values cannot be changed from the outside
- */
-const tasks = readable(tasksState);
-
 const converter = new showdown.Converter();
 const getTimeString = () => new Date().toTimeString();
 const questionsTimeStamp = writable(getTimeString());
 
 /**
- * Modify the store
+ * Functions to modify the store
  */
 function changeScope(newScope) {
   scope.set(newScope);
@@ -43,14 +38,10 @@ function updateTasks(currentScope, markdown) {
 /**
  * Derived Store values
  */
+const tasks = derived([scope], ([$scope]) => getTasks($scope));
 
-const generatedTasks = derived([tasks, scope], ([$tasks, $scope]) =>
-  getTasks($tasks, $scope),
-);
-
-const generatedQuestions = derived(
-  [scope, questionsTimeStamp],
-  ([$scope, $timeStamp]) => getQuestions($scope /* , $timeStamp */),
+const questions = derived([scope, questionsTimeStamp], ([$scope, $timeStamp]) =>
+  getQuestions($scope /* , $timeStamp */),
 );
 
 /**
@@ -69,15 +60,15 @@ function getQuestions(scope) {
   );
 }
 
-function getTasks(originalTasks, currentScope) {
+function getTasks(currentScope) {
   const whitespaceRegEx = /^\s+|\s+$/gm;
   const liRegEx = /<li>(.*)?<\/li>/g;
 
   let value = { html: '', markdown: '' };
 
   // if the tasks nor scope don't match, get out gracefully as possible
-  if (originalTasks && originalTasks[currentScope]) {
-    value.markdown = originalTasks[currentScope].replace(whitespaceRegEx, '');
+  if (tasksState && tasksState[currentScope]) {
+    value.markdown = tasksState[currentScope].replace(whitespaceRegEx, '');
     let html = converter.makeHtml(value.markdown);
     if (html && html.length) {
       html = html.replace(liRegEx, createTaskListItems());
@@ -104,10 +95,10 @@ function getTasks(originalTasks, currentScope) {
  * Reveal and export the store
  */
 export const store = {
-  questions: generatedQuestions,
+  questions,
   scope,
   scopes,
-  tasks: generatedTasks,
+  tasks,
   updateQuestions,
   changeScope,
   updateTasks,
