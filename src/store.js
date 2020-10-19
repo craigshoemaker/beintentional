@@ -1,17 +1,23 @@
-import { derived, writable } from 'svelte/store';
+import { derived, readable, writable } from 'svelte/store';
 import { getRandomNumber, storageKeys } from './core';
 import { data } from './data';
-
-let scope = writable('daily');
-let scopes = writable(data.scopes);
 
 let tasksState = localStorage[storageKeys.TASKS]
   ? JSON.parse(localStorage[storageKeys.TASKS])
   : data.tasks;
 
+/**
+ * Writable store values can be changed from the outside
+ */
+let scope = writable('daily');
+let scopes = writable(data.scopes);
+
+/**
+ * Readable store values cannot be changed from the outside
+ */
+const tasks = readable(tasksState);
+
 const converter = new showdown.Converter();
-const questions = writable(data.questions);
-const tasks = writable(tasksState);
 const getTimeString = () => new Date().toTimeString();
 const questionsTimeStamp = writable(getTimeString());
 
@@ -26,22 +32,32 @@ function updateQuestions() {
   questionsTimeStamp.set(getTimeString());
 }
 
+function updateTasks(currentScope, markdown) {
+  tasks.update((state) => {
+    state[currentScope] = markdown;
+    localStorage[storageKeys.TASKS] = JSON.stringify(state);
+    return state;
+  });
+}
+
 /**
  * Derived Store values
  */
 
-const _tasks = derived([tasks, scope], ([$tasks, $scope]) =>
+const generatedTasks = derived([tasks, scope], ([$tasks, $scope]) =>
   getTasks($tasks, $scope),
 );
 
-const _questions = derived(
-  [questions, scope, questionsTimeStamp],
-  ([$questions, $scope, $timeStamp]) =>
-    getQuestions($questions, $scope /* , $timeStamp */),
+const generatedQuestions = derived(
+  [scope, questionsTimeStamp],
+  ([$scope, $timeStamp]) => getQuestions($scope /* , $timeStamp */),
 );
 
-function getQuestions(questions, scope) {
-  const questionsByCategory = questions.filter((question) =>
+/**
+ * Internal store functions
+ */
+function getQuestions(scope) {
+  const questionsByCategory = data.questions.filter((question) =>
     question.categories.includes(scope),
   );
   const size = { length: 2 };
@@ -53,9 +69,6 @@ function getQuestions(questions, scope) {
   );
 }
 
-/**
- * Internal store functions
- */
 function getTasks(originalTasks, currentScope) {
   const whitespaceRegEx = /^\s+|\s+$/gm;
   const liRegEx = /<li>(.*)?<\/li>/g;
@@ -87,22 +100,14 @@ function getTasks(originalTasks, currentScope) {
   }
 }
 
-function updateTasks(currentScope, markdown) {
-  tasks.update((state) => {
-    state[currentScope] = markdown;
-    localStorage[storageKeys.TASKS] = JSON.stringify(state);
-    return state;
-  });
-}
-
 /**
  * Reveal and export the store
  */
 export const store = {
-  questions: _questions,
+  questions: generatedQuestions,
   scope,
   scopes,
-  tasks: _tasks,
+  tasks: generatedTasks,
   updateQuestions,
   changeScope,
   updateTasks,
