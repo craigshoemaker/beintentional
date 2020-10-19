@@ -5,22 +5,40 @@ import { data } from './data';
 let scope = writable('daily');
 let scopes = writable(data.scopes);
 
-let tasksState = {};
-if (!localStorage[storageKeys.TASKS]) {
-  tasksState = data.tasks;
-} else {
-  tasksState = JSON.parse(localStorage[storageKeys.TASKS]);
-}
+let tasksState = localStorage[storageKeys.TASKS]
+  ? JSON.parse(localStorage[storageKeys.TASKS])
+  : data.tasks;
 
 const converter = new showdown.Converter();
 const questions = writable(data.questions);
 const tasks = writable(tasksState);
 const getTimeString = () => new Date().toTimeString();
-const questionsRefresh = writable(getTimeString());
+const questionsTimeStamp = writable(getTimeString());
 
+/**
+ * Modify the store
+ */
 function changeScope(newScope) {
   scope.set(newScope);
 }
+
+function updateQuestions() {
+  questionsTimeStamp.set(getTimeString());
+}
+
+/**
+ * Derived Store values
+ */
+
+const _tasks = derived([tasks, scope], ([$tasks, $scope]) =>
+  getTasks($tasks, $scope),
+);
+
+const _questions = derived(
+  [questions, scope, questionsTimeStamp],
+  ([$questions, $scope, $timeStamp]) =>
+    getQuestions($questions, $scope /* , $timeStamp */),
+);
 
 function getQuestions(questions, scope) {
   const questionsByCategory = questions.filter((question) =>
@@ -35,17 +53,28 @@ function getQuestions(questions, scope) {
   );
 }
 
-function updateQuestions() {
-  questionsRefresh.set(getTimeString());
-}
-
+/**
+ * Internal store functions
+ */
 function getTasks(originalTasks, currentScope) {
-  let value = {};
-  value.markdown = originalTasks[currentScope].replace(/^\s+|\s+$/gm, '');
+  const whitespaceRegEx = /^\s+|\s+$/gm;
   const liRegEx = /<li>(.*)?<\/li>/g;
-  let html = converter.makeHtml(value.markdown);
-  if (html && html.length) {
-    html = html.replace(liRegEx, (match, group) => {
+
+  let value = { html: '', markdown: '' };
+
+  // if the tasks nor scope don't match, get out gracefully as possible
+  if (originalTasks && originalTasks[currentScope]) {
+    value.markdown = originalTasks[currentScope].replace(whitespaceRegEx, '');
+    let html = converter.makeHtml(value.markdown);
+    if (html && html.length) {
+      html = html.replace(liRegEx, createTaskListItems());
+    }
+    value.html = html;
+  }
+  return value;
+
+  function createTaskListItems() {
+    return (match, group) => {
       const id = getRandomNumber(1, 10000);
       let value = `
         <li>
@@ -54,10 +83,8 @@ function getTasks(originalTasks, currentScope) {
         </li>`;
       value = value.replace('<a href=', '<a target="blank" href=');
       return value;
-    });
+    };
   }
-  value.html = html;
-  return value;
 }
 
 function updateTasks(currentScope, markdown) {
@@ -68,16 +95,9 @@ function updateTasks(currentScope, markdown) {
   });
 }
 
-const _tasks = derived([tasks, scope], ([$tasks, $scope]) =>
-  getTasks($tasks, $scope),
-);
-
-const _questions = derived(
-  [questions, scope, questionsRefresh],
-  ([$questions, $scope, $refresh]) =>
-    getQuestions($questions, $scope /* , $refresh */),
-);
-
+/**
+ * Reveal and export the store
+ */
 export const store = {
   questions: _questions,
   scope,
