@@ -17,7 +17,7 @@ export const questions = [
     id: '3',
     text: 'What am I avoiding?',
     description:
-      'Situations that cause pain or inconvenience make us put them off. What do I need to face head-on?',
+      'Situations that cause pain or inconvenience make us put off important tasks. What do I need to face head-on?',
     categories: ['daily'],
   },
   {
@@ -133,7 +133,7 @@ export const questions = [
   },
   {
     id: '20',
-    text: 'How can I affect change in injustice in the world?',
+    text: 'How can I affect change in an injustice in the world?',
     description:
       'Even if its just in a small way - how can I help to right a wrong in the world today?',
     categories: ['daily'],
