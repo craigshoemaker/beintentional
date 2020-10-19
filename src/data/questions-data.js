@@ -4,14 +4,14 @@ export const questions = [
     text: 'Who am I?',
     description:
       'Honestly describe who you are at this moment in time. Perhaps you select a certain aspect of who you are to dive deep, but the point is to make an objective assessment of who you are today.',
-    categories: ['yearly'],
+    categories: ['monthly', 'yearly'],
   },
   {
     id: '2',
     text: 'Who do I want to be?',
     description:
       'Who do you want to be at some point in the future? You can vary the time span, or focus on different areas of your life, but be specific.',
-    categories: ['yearly'],
+    categories: ['monthly', 'yearly'],
   },
   {
     id: '3',
@@ -25,14 +25,14 @@ export const questions = [
     text: 'What scares me?',
     description:
       'We all have our fears - rational and irrational. What fears are worth examining?',
-    categories: ['daily'],
+    categories: ['monthly'],
   },
   {
     id: '5',
     text: 'What am I grateful for?',
     description:
       "Some days are easier than others to find our gratitude. Whether it's a beating heart, or winning the lottery - there's and endless list of things to be thankful for.",
-    categories: ['daily'],
+    categories: ['daily', 'weekly', 'monthly', 'yearly'],
   },
   {
     id: '6',
@@ -54,7 +54,7 @@ export const questions = [
       "What's broken around me that needs to be fixed or redeemed for good?",
     description:
       'The world is full of opportunities to help make today better than yesterday. Find one and help bring more good in the world.',
-    categories: ['daily'],
+    categories: ['monthly', 'yearly'],
   },
   {
     id: '9',
@@ -67,14 +67,14 @@ export const questions = [
     text: "What don't I understand about myself?",
     description:
       'What in my life persists no matter how I try to rid myself of it? What reactions, emotions, or attitudes do I have that sometimes surprise me?',
-    categories: ['daily'],
+    categories: ['weekly'],
   },
   {
     id: '11',
     text: "What's important to the people closest to me right now?",
     description:
       "Being aware of the needs an priorities of those most important in our lives helps make us better attuned to now we can serve those around us, and to ensure we're contributing to the health and well-being of our most intimate circle.",
-    categories: ['daily'],
+    categories: ['monthly', 'yearly'],
   },
   {
     id: '12',
@@ -100,8 +100,7 @@ export const questions = [
   {
     id: '15',
     text: "What's important that needs attention?",
-    description:
-      "Maybe this thing isn't urgent right now, but find something that is truly important and act on it today.",
+    description: `Maybe this "thing" isn't urgent right now, but find something that is truly important and act on it today.`,
     categories: ['daily'],
   },
   {
@@ -122,7 +121,7 @@ export const questions = [
     id: '18',
     text: 'What upcoming events or important dates do I need to prepare for?',
     description: "Don't miss that birthday, anniversary, or important meeting.",
-    categories: ['daily'],
+    categories: ['daily', 'weekly'],
   },
   {
     id: '19',
@@ -135,8 +134,8 @@ export const questions = [
     id: '20',
     text: 'How can I affect change in an injustice in the world?',
     description:
-      'Even if its just in a small way - how can I help to right a wrong in the world today?',
-    categories: ['daily'],
+      'Even if its just in a small way - how can I help to right a wrong in the world?',
+    categories: ['weekly', 'monthly'],
   },
   {
     id: '21',
@@ -156,6 +155,6 @@ export const questions = [
     text: 'What mistakes have I made that make for worthwhile lessons?',
     description:
       'A failure without extracting lessons is really just a defeat. Find the instructional aspects of situations that can make them more worth the experience.',
-    categories: ['yearly'],
+    categories: ['monthly', 'yearly'],
   },
 ];
