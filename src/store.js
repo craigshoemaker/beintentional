@@ -26,7 +26,7 @@ function getQuestions(questions, scope) {
   const questionsByCategory = questions.filter((question) =>
     question.categories.includes(scope),
   );
-  const size = { length: 3 };
+  const size = { length: 2 };
   const indexes = Array.from(size, () =>
     getRandomNumber(0, questionsByCategory.length),
   );
@@ -47,11 +47,13 @@ function getTasks(originalTasks, currentScope) {
   if (html && html.length) {
     html = html.replace(liRegEx, (match, group) => {
       const id = getRandomNumber(1, 10000);
-      return `
+      let value = `
         <li>
           <input id="${id}" type="checkbox" class="inline-block mr-2">
           <label for="${id}" class="cursor-pointer">${group}</label>
         </li>`;
+      value = value.replace('<a href=', '<a target="blank" href=');
+      return value;
     });
   }
   value.html = html;
