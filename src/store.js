@@ -1,4 +1,4 @@
-import { derived, readable, writable } from 'svelte/store';
+import { derived, writable } from 'svelte/store';
 import { getRandomNumber, storageKeys } from './core';
 import { data } from './data';
 
