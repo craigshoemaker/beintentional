@@ -2,28 +2,53 @@ import { derived, writable } from 'svelte/store';
 import { getRandomNumber, storageKeys } from './core';
 import { data } from './data';
 
+let tasksState = localStorage[storageKeys.TASKS]
+  ? JSON.parse(localStorage[storageKeys.TASKS])
+  : data.tasks;
+
+/**
+ * Writable store values can be changed from the outside
+ */
 let scope = writable('daily');
 let scopes = writable(data.scopes);
 
-let tasksState = {};
-if (!localStorage[storageKeys.TASKS]) {
-  tasksState = data.tasks;
-} else {
-  tasksState = JSON.parse(localStorage[storageKeys.TASKS]);
-}
-
 const converter = new showdown.Converter();
-const questions = writable(data.questions);
-const tasks = writable(tasksState);
 const getTimeString = () => new Date().toTimeString();
-const questionsRefresh = writable(getTimeString());
+const questionsTimeStamp = writable(getTimeString());
 
+/**
+ * Functions to modify the store
+ */
 function changeScope(newScope) {
   scope.set(newScope);
 }
 
-function getQuestions(questions, scope) {
-  const questionsByCategory = questions.filter((question) =>
+function updateQuestions() {
+  questionsTimeStamp.set(getTimeString());
+}
+
+function updateTasks(currentScope, markdown) {
+  tasks.update((state) => {
+    state[currentScope] = markdown;
+    localStorage[storageKeys.TASKS] = JSON.stringify(state);
+    return state;
+  });
+}
+
+/**
+ * Derived Store values
+ */
+const tasks = derived([scope], ([$scope]) => getTasks($scope));
+
+const questions = derived([scope, questionsTimeStamp], ([$scope, $timeStamp]) =>
+  getQuestions($scope /* , $timeStamp */),
+);
+
+/**
+ * Internal store functions
+ */
+function getQuestions(scope) {
+  const questionsByCategory = data.questions.filter((question) =>
     question.categories.includes(scope),
   );
   const size = { length: 2 };
@@ -35,17 +60,25 @@ function getQuestions(questions, scope) {
   );
 }
 
-function updateQuestions() {
-  questionsRefresh.set(getTimeString());
-}
-
-function getTasks(originalTasks, currentScope) {
-  let value = {};
-  value.markdown = originalTasks[currentScope].replace(/^\s+|\s+$/gm, '');
+function getTasks(currentScope) {
+  const whitespaceRegEx = /^\s+|\s+$/gm;
   const liRegEx = /<li>(.*)?<\/li>/g;
-  let html = converter.makeHtml(value.markdown);
-  if (html && html.length) {
-    html = html.replace(liRegEx, (match, group) => {
+
+  let value = { html: '', markdown: '' };
+
+  // if the tasks nor scope don't match, get out gracefully as possible
+  if (tasksState && tasksState[currentScope]) {
+    value.markdown = tasksState[currentScope].replace(whitespaceRegEx, '');
+    let html = converter.makeHtml(value.markdown);
+    if (html && html.length) {
+      html = html.replace(liRegEx, createTaskListItems());
+    }
+    value.html = html;
+  }
+  return value;
+
+  function createTaskListItems() {
+    return (match, group) => {
       const id = getRandomNumber(1, 10000);
       let value = `
         <li>
@@ -54,35 +87,18 @@ function getTasks(originalTasks, currentScope) {
         </li>`;
       value = value.replace('<a href=', '<a target="blank" href=');
       return value;
-    });
+    };
   }
-  value.html = html;
-  return value;
 }
 
-function updateTasks(currentScope, markdown) {
-  tasks.update((state) => {
-    state[currentScope] = markdown;
-    localStorage[storageKeys.TASKS] = JSON.stringify(state);
-    return state;
-  });
-}
-
-const _tasks = derived([tasks, scope], ([$tasks, $scope]) =>
-  getTasks($tasks, $scope),
-);
-
-const _questions = derived(
-  [questions, scope, questionsRefresh],
-  ([$questions, $scope, $refresh]) =>
-    getQuestions($questions, $scope /* , $refresh */),
-);
-
+/**
+ * Reveal and export the store
+ */
 export const store = {
-  questions: _questions,
+  questions,
   scope,
   scopes,
-  tasks: _tasks,
+  tasks,
   updateQuestions,
   changeScope,
   updateTasks,
