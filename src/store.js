@@ -2,15 +2,15 @@ import { derived, writable } from 'svelte/store';
 import { getRandomNumber, storageKeys } from './core';
 import { data } from './data';
 
-let tasksState = localStorage[storageKeys.TASKS]
+const tasksState = localStorage[storageKeys.TASKS]
   ? JSON.parse(localStorage[storageKeys.TASKS])
   : data.tasks;
 
 /**
  * Writable store values can be changed from the outside
  */
-let scope = writable('daily');
-let scopes = writable(data.scopes);
+const scope = writable('daily');
+const scopes = writable(data.scopes);
 
 const converter = new showdown.Converter();
 const getTimeString = () => new Date().toTimeString();
@@ -61,20 +61,21 @@ function getQuestions(scope) {
 }
 
 function getTasks(currentScope) {
-  const whitespaceRegEx = /^\s+|\s+$/gm;
+  const extraLinesRegEx = /^\s+|\s+$/gm;
   const liRegEx = /<li>(.*)?<\/li>/g;
 
   let value = { html: '', markdown: '' };
 
   // if the tasks nor scope don't match, get out gracefully as possible
   if (tasksState && tasksState[currentScope]) {
-    value.markdown = tasksState[currentScope].replace(whitespaceRegEx, '');
+    value.markdown = tasksState[currentScope].replace(extraLinesRegEx, '');
     let html = converter.makeHtml(value.markdown);
     if (html && html.length) {
       html = html.replace(liRegEx, createTaskListItems());
     }
     value.html = html;
   }
+
   return value;
 
   function createTaskListItems() {
