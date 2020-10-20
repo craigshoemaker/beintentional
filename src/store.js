@@ -11,7 +11,7 @@ const tasksState = localStorage[storageKeys.TASKS]
  */
 const scope = writable('daily');
 const scopes = writable(data.scopes);
-const tasksStore = writable(tasksState);
+const tasks = writable(tasksState);
 
 const converter = new showdown.Converter();
 const getTimeString = () => new Date().toTimeString();
@@ -29,7 +29,7 @@ function updateQuestions() {
 }
 
 function updateTasks(currentScope, markdown) {
-  tasksStore.update((state) => {
+  tasks.update((state) => {
     state[currentScope] = markdown;
     localStorage[storageKeys.TASKS] = JSON.stringify(state);
     return state;
@@ -39,7 +39,7 @@ function updateTasks(currentScope, markdown) {
 /**
  * Derived Store values
  */
-const tasks = derived([tasksStore, scope], ([$tasks, $scope]) =>
+const scopedTasks = derived([tasks, scope], ([$tasks, $scope]) =>
   getTasks($tasks, $scope),
 );
 
@@ -103,7 +103,7 @@ export const store = {
   questions,
   scope,
   scopes,
-  tasks,
+  tasks: scopedTasks,
   updateQuestions,
   changeScope,
   updateTasks,
