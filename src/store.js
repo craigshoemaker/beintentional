@@ -11,6 +11,7 @@ const tasksState = localStorage[storageKeys.TASKS]
  */
 const scope = writable('daily');
 const scopes = writable(data.scopes);
+const tasksStore = writable(tasksState);
 
 const converter = new showdown.Converter();
 const getTimeString = () => new Date().toTimeString();
@@ -28,7 +29,7 @@ function updateQuestions() {
 }
 
 function updateTasks(currentScope, markdown) {
-  tasks.update((state) => {
+  tasksStore.update((state) => {
     state[currentScope] = markdown;
     localStorage[storageKeys.TASKS] = JSON.stringify(state);
     return state;
@@ -38,7 +39,9 @@ function updateTasks(currentScope, markdown) {
 /**
  * Derived Store values
  */
-const tasks = derived([scope], ([$scope]) => getTasks($scope));
+const tasks = derived([tasksStore, scope], ([$tasks, $scope]) =>
+  getTasks($tasks, $scope),
+);
 
 const questions = derived([scope, questionsTimeStamp], ([$scope, $timeStamp]) =>
   getQuestions($scope /* , $timeStamp */),
@@ -51,6 +54,7 @@ function getQuestions(scope) {
   const questionsByCategory = data.questions.filter((question) =>
     question.categories.includes(scope),
   );
+
   const size = { length: 2 };
   const indexes = Array.from(size, () =>
     getRandomNumber(0, questionsByCategory.length),
@@ -60,15 +64,15 @@ function getQuestions(scope) {
   );
 }
 
-function getTasks(currentScope) {
+function getTasks(currentTasks, currentScope) {
   const extraLinesRegEx = /^\s+|\s+$/gm;
   const liRegEx = /<li>(.*)?<\/li>/g;
 
   let value = { html: '', markdown: '' };
 
   // if the tasks nor scope don't match, get out gracefully as possible
-  if (tasksState && tasksState[currentScope]) {
-    value.markdown = tasksState[currentScope].replace(extraLinesRegEx, '');
+  if (currentTasks && currentTasks[currentScope]) {
+    value.markdown = currentTasks[currentScope].replace(extraLinesRegEx, '');
     let html = converter.makeHtml(value.markdown);
     if (html && html.length) {
       html = html.replace(liRegEx, createTaskListItems());
