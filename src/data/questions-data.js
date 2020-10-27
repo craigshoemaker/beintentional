@@ -10,7 +10,7 @@ export const questions = [
     id: '2',
     text: 'Who do I want to be?',
     description:
-      'Who do you want to be at some point in the future? You can vary the time span, or focus on different areas of your life, but be specific.',
+      'Who do I want to be at some point in the future? Vary the time span, or focus on different areas of life, but be specific.',
     categories: ['monthly', 'yearly'],
   },
   {
@@ -38,7 +38,7 @@ export const questions = [
     id: '6',
     text: "How can I make a difference in someone's life today?",
     description:
-      'We sometimes lose sight of the fact that our everyday life, be it words or actions have a profound effect on those around us.',
+      'We sometimes lose sight of the fact that our everyday life - be it words or actions - have a profound effect on those around us.',
     categories: ['daily'],
   },
   {
@@ -53,7 +53,7 @@ export const questions = [
     text:
       "What's broken around me that needs to be fixed or redeemed for good?",
     description:
-      'The world is full of opportunities to help make today better than yesterday. Find one and help bring more good in the world.',
+      'The world is full of opportunities to help make today better than yesterday. Find any reason to help bring more good in the world.',
     categories: ['monthly', 'yearly'],
   },
   {
@@ -73,28 +73,28 @@ export const questions = [
     id: '11',
     text: "What's important to the people closest to me right now?",
     description:
-      "Being aware of the needs an priorities of those most important in our lives helps make us better attuned to now we can serve those around us, and to ensure we're contributing to the health and well-being of our most intimate circle.",
+      "Being aware of the needs and priorities of those most important in our lives helps make us better attuned to know how we can serve those around us. Look to ensure I'm contributing to the health and well-being of my inner-circle.",
     categories: ['monthly', 'yearly'],
   },
   {
     id: '12',
     text: 'What do I regret?',
     description:
-      'Rather than looking for a past mistake to dwell on, what misstep presents me with a learning experience?',
+      'Rather than looking for a past mistake to dwell on, what misstep presents me with a valuable learning experience?',
     categories: ['daily'],
   },
   {
     id: '13',
     text: 'How am I wasting time?',
     description:
-      'Social media, TV, or age old procrastination can be a silent thief of our time and attention',
+      'Social media, TV, or age-old procrastination can be a silent thief of our time and attention',
     categories: ['daily'],
   },
   {
     id: '14',
     text: 'How can I challenge/scare myself?',
     description:
-      'We are all built to withstand more than we think. What can I do, start, or arrange that places me well out of my comfort zone?',
+      'We are all built to withstand more than we think. What can I do, start, or arrange that places me well outside my comfort zone?',
     categories: ['daily'],
   },
   {
@@ -114,7 +114,7 @@ export const questions = [
     id: '17',
     text: 'What is something I can do for "future me" today?',
     description:
-      "Make a doctor's appointment, schedule time to read, or exercise - do something that will help make your life easier for you in the coming days, weeks, or years.",
+      "Make a doctor's appointment, schedule time to read, exercise - just do something that  helps make life easier in the coming days, weeks, or years.",
     categories: ['daily'],
   },
   {
@@ -127,7 +127,7 @@ export const questions = [
     id: '19',
     text: 'What thing (large or small) needs my attention today?',
     description:
-      'The todo list is endless, but focus on what needs to be done in the next 24 hours.',
+      'The "todo" list is endless, but focus on what needs to be done in the next 24 hours.',
     categories: ['daily'],
   },
   {
