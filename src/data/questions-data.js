@@ -67,7 +67,7 @@ export const questions = [
     text: "What don't I understand about myself?",
     description:
       'What in my life persists no matter how I try to rid myself of it? What reactions, emotions, or attitudes do I have that sometimes surprise me?',
-    categories: ['weekly'],
+    categories: ['monthly'],
   },
   {
     id: '11',
@@ -156,5 +156,67 @@ export const questions = [
     description:
       'A failure without extracting lessons is really just a defeat. Find the instructional aspects of situations that can make them more worth the experience.',
     categories: ['monthly', 'yearly'],
+  },
+  {
+    id: '24',
+    text:
+      'If I had unlimited time with my friends and/or family, what would I do?',
+    description:
+      'Identify the experiences that make relationships rich and work to make them happen.',
+    categories: ['weekly'],
+  },
+  {
+    id: '25',
+    text: 'How can I better take care of myself?',
+    description:
+      'From sleep to spiritual well-being what areas of my life need attention to avoid burnout?',
+    categories: ['monthly', 'yearly'],
+  },
+  {
+    id: '26',
+    text: 'What did I learn this week?',
+    description:
+      "Identify some wisdom gained this week that's worth some reflection.",
+    categories: ['weekly'],
+  },
+  {
+    id: '27',
+    text: "What's the first thing that needs to happen next week?",
+    description: "Define next week's first priority in detail.",
+    categories: ['weekly'],
+  },
+  {
+    id: '28',
+    text: 'What have I learn from past mistakes that can help me next week?',
+    description: 'Head off future problems before they become problems.',
+    categories: ['weekly'],
+  },
+  {
+    id: '29',
+    text: 'What opportunities are available next week?',
+    description:
+      'What is available to me this week that may not have been in the past?',
+    categories: ['weekly'],
+  },
+  {
+    id: '30',
+    text: 'Who can I express gratitude to this week?',
+    description:
+      "Send a thank you note or tell someone in person how they've made an impact.",
+    categories: ['weekly'],
+  },
+  {
+    id: '31',
+    text: 'What did I miss last week?',
+    description:
+      "What task, or project went undone? What phone call or personal connection didn't happen last week?",
+    categories: ['weekly'],
+  },
+  {
+    id: '32',
+    text: 'If this was my last week on Earth, what would I do with it?',
+    description:
+      "Don't wait until it's too late to do what's most important to you.",
+    categories: ['weekly'],
   },
 ];
