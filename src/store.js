@@ -55,13 +55,28 @@ function getQuestions(scope) {
     question.categories.includes(scope),
   );
 
-  const size = { length: 2 };
-  const indexes = Array.from(size, () =>
-    getRandomNumber(0, questionsByCategory.length),
-  );
-  return questionsByCategory.filter((question, index) =>
+  const questionsCount = {
+    daily: 2,
+    weekly: 3,
+    monthly: 4,
+    yearly: 5,
+  };
+
+  const size = questionsCount[scope];
+  const indexes = [];
+
+  while (indexes.length < size) {
+    let index = getRandomNumber(0, questionsByCategory.length);
+    if (!indexes.includes(index)) {
+      indexes.push(index);
+    }
+  }
+
+  const currentQuestions = questionsByCategory.filter((question, index) =>
     indexes.includes(index),
   );
+
+  return currentQuestions;
 }
 
 function getTasks(currentTasks, currentScope) {
