@@ -62,11 +62,9 @@ function getQuestions(scope) {
     yearly: 5,
   };
 
-  const size = questionsCount[scope];
   const indexes = [];
-
-  while (indexes.length < size) {
-    let index = getRandomNumber(0, questionsByCategory.length);
+  while (indexes.length < questionsCount[scope]) {
+    const index = getRandomNumber(0, questionsByCategory.length);
     if (!indexes.includes(index)) {
       indexes.push(index);
     }
