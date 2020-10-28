@@ -74,14 +74,14 @@ export const questions = [
     text: "What's important to the people closest to me right now?",
     description:
       "Being aware of the needs and priorities of those most important in our lives helps make us better attuned to know how we can serve those around us. Look to ensure I'm contributing to the health and well-being of my inner-circle.",
-    categories: ['monthly', 'yearly'],
+    categories: ['monthly'],
   },
   {
     id: '12',
     text: 'What do I regret?',
     description:
       'Rather than looking for a past mistake to dwell on, what misstep presents me with a valuable learning experience?',
-    categories: ['daily'],
+    categories: ['monthly'],
   },
   {
     id: '13',
@@ -218,5 +218,61 @@ export const questions = [
     description:
       "Don't wait until it's too late to do what's most important to you.",
     categories: ['weekly'],
+  },
+  {
+    id: '33',
+    text: 'What is my definition for success for the next year?',
+    description:
+      'Beyond professional achievement, detail what success looks like in relationships and personal growth.',
+    categories: ['yearly'],
+  },
+  {
+    id: '34',
+    text:
+      'What did I face this last year that required extraordinary demands on my character?',
+    description:
+      'Regardless of triumph or failure, detail something that happened this last year that pushed well beyond normal circumstances and reflect on what lessons (good or bad) lie in this situation.',
+    categories: ['yearly'],
+  },
+  {
+    id: '35',
+    text: 'How did I fail this year and how can avoid the same next year?',
+    description: 'Embrace your faults long enough to make them work for you.',
+    categories: ['yearly'],
+  },
+  {
+    id: '36',
+    text: 'How did I succeed this year and how can I make it happen again?',
+    description:
+      'Sometimes its luck, sometimes timing, and sometimes it just plain hard work. Figure out what went right find out how to make it happen again.',
+    categories: ['yearly'],
+  },
+  {
+    id: '37',
+    text: 'What are my top five things?',
+    description:
+      'List and detail the top most important things in life. List them in order and explore them in detail.',
+    categories: ['yearly'],
+  },
+  {
+    id: '38',
+    text: 'What would I do this year if it was my last?',
+    description:
+      "We're not guaranteed our next breath let alone another twelve months. Explore, in detail, what you would do in the next year if money or time was no restriction.",
+    categories: ['yearly'],
+  },
+  {
+    id: '39',
+    text: 'What would you say in your time capsule?',
+    description:
+      'Write a letter to yourself to read again in ten years. Detail what you wish to be true about life and commit reading again only after a full decade has past.',
+    categories: ['yearly'],
+  },
+  {
+    id: '40',
+    text: 'What event from the last year would I like to relive?',
+    description:
+      'Describe something that happened from the last year, that brings the most joy or satisfaction.',
+    categories: ['yearly'],
   },
 ];
